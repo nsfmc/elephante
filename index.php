@@ -1,6 +1,7 @@
 <?php 
 // an elephante never forgets (and never forgives, either)
 // (c) 2011, marcos ojeda
+// licensed under an mit license
 
 function exception_error_handler($errno, $errstr, $errfile, $errline ) {
     throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
