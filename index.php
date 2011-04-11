@@ -9,7 +9,7 @@ function exception_error_handler($errno, $errstr, $errfile, $errline ) {
 set_error_handler("exception_error_handler");
 date_default_timezone_set("America/New_York");
 
-$tumblr_url =  "http://nsfmc.tumblr.com/";
+// $tumblr_url =  "http://nsfmc.tumblr.com/";
 
 
 
@@ -87,6 +87,7 @@ function crawl_tumblr($tumblr_url, $cachefile="cache/mytumblr.json"){
   }
   // TODO abstract this away
   file_put_contents($cachefile, json_encode($tumblr));
+  chmod($cachefile, 0666);
 }
 
 function elephante($tumblr_url, $cachefile="cache/mytumblr.json"){
@@ -120,7 +121,7 @@ function elephante($tumblr_url, $cachefile="cache/mytumblr.json"){
       if($newtumblr["tumblr"]["posts-total"] == count($cache["posts"])){
         file_put_contents($cachefile, json_encode($cache));
       }else{
-        crawl_tumblr($tumblr_url);
+        crawl_tumblr($tumblr_url, $cachefile);
       }
     }else if($newtumblr["status"] == 304){
       // nothing's changed
@@ -129,11 +130,13 @@ function elephante($tumblr_url, $cachefile="cache/mytumblr.json"){
     }
   }else{
     // the cache is borked, try crawling?
-    crawl_tumblr($tumblr_url);
+    // also, this assumes that cachefile is writable, but doesn't
+    // give an error if it's not :(
+    // TODO break nicely, maybe add a post that says "it's broken!"
+    crawl_tumblr($tumblr_url, $cachefile);
+    return check_cache($cachefile);
   }
   return $cache;
 }
-
-elephante($tumblr_url);
 
 ?>
