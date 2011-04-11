@@ -9,9 +9,6 @@ function exception_error_handler($errno, $errstr, $errfile, $errline ) {
 set_error_handler("exception_error_handler");
 date_default_timezone_set("America/New_York");
 
-// $tumblr_url =  "http://nsfmc.tumblr.com/";
-
-
 
 function get_tumblr($tumblr_url, $args= "", $lastmodtime = null){
   $tumblr_url .= "api/read/json?{$args}";
