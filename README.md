@@ -4,6 +4,8 @@
 
 Instead of hitting your tumblr each time you make a read, it checks the HTTP Last-Modified header against the last blog post it saw before downloading from the api. The result is that most of the time, elephanté is reading a cached json file for your blog. It handles new posts by merging them and, for now, resolves simple consistency problems.
 
+In the rare instances that tumblr is down, it happily serves you a locally-hosted cache of your blog (yay!)
+
 It gives you a php assoc. array that behaves nearly identically to the tumblr api with the exception that it contains your whole blog's contents rather than *n posts* at a time.
 
 ## using
@@ -23,10 +25,39 @@ that's it, you can do pagination on your blog by setting a page number in the qu
 
     chmod 777 cache
 
-it also uses php curl, which you may or may not need to install
+that's it.
+
+## requirements
+
+php curl, which basically needs to be compiled in to your php (or possibly apt-gotten).
+
+php's `json_decode` and `json_encode` which are basically php5+ (but seriously, let's not kid ourselves, this shouldn't be an issue anymore).
+
+also, if like me, you happen to use anonymous functions in `array_map` and `array_filter` then you already know that you need at least php 5.3+ in order to use those.
 
 ## license
 
-mit license
+elephante's php is licensed under an mit license
+
+    Copyright (C) 2011 by Marcos Ojeda, breakfastsandwich.org
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
 
 let me know if you find this useful, elephante@generic.cx
